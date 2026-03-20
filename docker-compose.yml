@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  mongodb:
+    image: mongo:7
+    container_name: erp-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  backend:
+    build:
+      context: ./backend
+    container_name: erp-backend
+    restart: unless-stopped
+    environment:
+      PORT: 5001
+      NODE_ENV: production
+      MONGODB_URI: mongodb://mongodb:27017/erp-pme
+      JWT_SECRET: your_super_secret_key_here
+      JWT_EXPIRES_IN: 8h
+      FRONTEND_URL: http://localhost:3001
+    ports:
+      - "5001:5001"
+    depends_on:
+      - mongodb
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: /api
+    container_name: erp-frontend
+    restart: unless-stopped
+    ports:
+      - "3001:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongodb_data:

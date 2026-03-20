@@ -27,6 +27,9 @@ const Badge = ({ status }) => {
     // Orange
     'SUSPENDU': 'bg-orange-100 text-orange-800',
     'CDD': 'bg-orange-100 text-orange-800',
+    'AJUSTEMENT': 'bg-orange-100 text-orange-800',
+    'ENTREE': 'bg-green-100 text-green-800',
+    'SORTIE': 'bg-red-100 text-red-800',
     // Default
     'default': 'bg-gray-100 text-gray-800',
   };

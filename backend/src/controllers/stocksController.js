@@ -38,7 +38,7 @@ exports.getFournisseurs = async (req, res) => {
             .exec();
 
         const count = await Fournisseur.countDocuments(query);
-        return apiResponse.paginate(res, fournisseurs, page, limit, count);
+        return apiResponse.paginate(res, fournisseurs, count, page, limit);
     } catch (err) {
         return apiResponse.error(res, 'Erreur serveur', 500, err.message);
     }
@@ -128,7 +128,7 @@ exports.getProduits = async (req, res) => {
             .exec();
 
         const count = await Produit.countDocuments(query);
-        return apiResponse.paginate(res, produits, page, limit, count);
+        return apiResponse.paginate(res, produits, count, page, limit);
     } catch (err) {
         return apiResponse.error(res, 'Erreur serveur', 500, err.message);
     }
@@ -254,7 +254,7 @@ exports.getMouvements = async (req, res) => {
             .exec();
 
         const count = await MouvementStock.countDocuments(query);
-        return apiResponse.paginate(res, mouvements, page, limit, count);
+        return apiResponse.paginate(res, mouvements, count, page, limit);
     } catch (err) {
         return apiResponse.error(res, 'Erreur serveur', 500, err.message);
     }
@@ -299,11 +299,11 @@ const createMouvement = async (produitId, quantite, type, motif, reference, user
     const mouvement = new MouvementStock({
         produit: produitId,
         type,
-        quantite: type === 'AJUSTEMENT' ? (nouvelleQuantite - quantiteAvant) : quantite,
-        quantiteAvant,
-        quantiteApres: nouvelleQuantite,
+        quantite: type === 'AJUSTEMENT' ? nouvelleQuantite : quantite,
+        stockAvant: quantiteAvant,
+        stockApres: nouvelleQuantite,
         motif,
-        reference,
+        referenceDocument: reference,
         effectuePar: userId,
     });
     await mouvement.save();

@@ -344,7 +344,7 @@ exports.getAlertesDashboard = async (req, res) => {
 
             // Factures validées mais non payées (impayées)
             Facture.find({ statut: 'VALIDEE' })
-                .select('numero client.nom montantTTC dateEcheance')
+                .select('numero clientNom montantTTC dateEcheance')
                 .lean()
         ]);
 
@@ -374,13 +374,13 @@ exports.getAlertesDashboard = async (req, res) => {
 
             // On s'assure que la facture et son client existent
             facturesImpayees: factures
-                .filter(f => f && f.client)
+                .filter(f => f && f.clientNom)
                 .map(f => ({
                     numero: f.numero,
-                    client: f.client?.nom || 'Client non défini',
+                    client: f.clientNom || 'Client non defini',
                     montant: f.montantTTC,
                     dateEcheance: f.dateEcheance,
-                    message: `Facture N°${f.numero} de ${f.montantTTC}€ pour ${f.client?.nom} est impayée.`
+                    message: `Facture N°${f.numero} de ${f.montantTTC} MAD pour ${f.clientNom} est impayee.`
                 }))
         };
 

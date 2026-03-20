@@ -85,6 +85,16 @@ MouvementStockSchema.post('save', async function (doc) {
   const produit = await Produit.findById(doc.produit);
   if (!produit) return;
 
+  // If stock snapshots are already set by the controller, trust stockApres
+  // and avoid applying the delta a second time here.
+  if (typeof doc.stockAvant === 'number' && typeof doc.stockApres === 'number') {
+    if (produit.quantiteStock !== doc.stockApres) {
+      produit.quantiteStock = doc.stockApres;
+      await produit.save();
+    }
+    return;
+  }
+
   const qte = doc.quantite;
 
   if (['ENTREE', 'RETOUR_CLIENT'].includes(doc.type)) {

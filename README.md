@@ -157,10 +157,9 @@ erp-pme/
 - [x] **ÉTAPE 5** — API Module Stocks : produits, mouvements, alertes de seuil ✅
 - [x] **ÉTAPE 6** — API Dashboard & Statistiques : agrégations MongoDB, KPIs ✅
 - [x] **ÉTAPE 7** — Frontend Setup & Auth : Vite + React + Tailwind + login UI ✅
-- [ ] **ÉTAPE 8** — Frontend Comptabilité & RH : tableaux, formulaires, CRUD
-- [ ] **ÉTAPE 9** — Frontend Stocks & Dashboard : graphiques Recharts, alertes
-- [ ] **ÉTAPE 10** — Tests, Docker & Finalisation : Jest, Supertest, Dockerfile
-
+- [x] **ÉTAPE 8** — Frontend Comptabilité & RH : tableaux, formulaires, CRUD✅
+- [x] **ÉTAPE 9** — Frontend Stocks & Dashboard : graphiques Recharts, alertes✅
+- [x] **ÉTAPE 10** — Tests, Docker & Finalisation : Jest, Supertest, Dockerfile✅
 ---
 
 ### Étape 7 : Frontend - Initialisation et Authentification
